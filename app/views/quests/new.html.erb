@@ -1,0 +1,31 @@
+<h1>Quests</h1>
+
+<h2>List</h2>
+<ul>
+  <% @quests && @quests.each do |quest| %>
+    <li>
+      <%= quest.journey.name %>
+      <%= quest.name %>
+      <%= quest.story %>
+      <%= quest.task %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Create New Quest</h2>
+
+<%= form_with(model: Quest.new, local: true, type: :model, html: {class: "form-class", style: "min-width: 800px;"}) do |f| %>
+  <%= f.label :journey, 'Journey', class: "form-label" %>
+  <%= f.collection_select :journey_id, Journey.order(:name), :id, :name %>
+  </br>
+  <%= f.label :name, 'Name', class: "form-label" %>
+  <%= f.text_field :name, class: "form-input" %>
+  </br>
+  <%= f.label :story, 'Story', class: "form-label" %>
+  <%= f.rich_text_area :story, class: "form-input" %>
+  </br>
+  <%= f.label :task, 'Task', class: "form-label" %>
+  <%= f.rich_text_area :task, class: "form-input" %>
+  </br>
+  <%= f.submit 'Submit', class: "form-button" %>
+<% end %>

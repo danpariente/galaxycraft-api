@@ -1,0 +1,20 @@
+<h1><%= "#{@journey} Journey" %></h1>
+<h2>Student's List</h2>
+<ul>
+  <% @journey.students.each do |student| %>
+    <li>
+      <%= student.name %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Add Students</h2>
+
+<%= form_with(model: Path.new) do |f| %>
+  <%= f.label :student, 'Student', class: "form-label" %>
+  <%= f.collection_select :student_id, Student.order(:name), :id, :name %>
+  <%= f.hidden_field :journey_id, value: @journey.id %>
+
+  </br>
+  <%= f.submit 'Submit', class: "form-button" %>
+<% end %>

@@ -1,0 +1,26 @@
+<h1>Journeys</h1>
+
+<% @journeys && @journeys.each do |journey| %>
+  <div>
+    <%= link_to journey %>
+  </div>
+  <div>
+  <% if journey.map.attached? %>
+    <%= image_tag journey.map %>
+  <% end %>
+  </div>
+<% end %>
+
+<h2>Create New Journey</h2>
+
+<%= form_with(model: Journey.new) do |form| %>
+  <%= form.label :name, style: "display: block" %>
+  <%= form.text_field :name %>
+
+  <%= form.label :map, style: "display: block" %>
+  <%= form.file_field :map %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

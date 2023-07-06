@@ -1,0 +1,46 @@
+<h1><%= "#{@student.name}'s " %>Character</h1>
+
+<% unless @student.profile %>
+  <%= form_with url: student_profile_path do |form| %>
+    <div class="form-group">
+      <h3>Character Attributes</h3>
+      <%= form.collection_check_boxes "profile[character][attributes]",  [["Body", :body],
+                                          ["Agility", :agility],
+                                          ["Charisma", :charisma],
+                                          ["Intellect", :intellect],
+                                          ["Psyche", :psyche],
+                                          ["Instinct", :instinct]], :first, :last, {include_hidden: false} %>
+    </div>
+    <div class="form-group">
+      <h3>Skills</h3>
+      <%= form.collection_check_boxes "profile[character][skills]",  [["Athletics", :athletics],
+                                          ["Stamina", :Stamina],
+                                          ["Mobility", :Mobility],
+                                          ["Stealth", :Stealth],
+                                          ["Leadership", :Leadership],
+                                          ["Negotiation", :Negotiation],
+                                          ["Seduction", :Seduction],
+                                          ["Engineering", :Engineering],
+                                          ["Focus", :Focus],
+                                          ["Cunning", :Cunning],
+                                          ["Deception", :Deception],
+                                          ["Empathy", :Empathy],
+                                          ["Perception", :Perception],
+                                          ["Survival", :Survival]], :first, :last, {include_hidden: false} %>
+    </div>
+    <%= form.hidden_field "profile[character][kind]", value: params[:kind] %>
+    <%= form.hidden_field "profile[student_id]", value: @student.id %>
+    <%= form.submit("Submit") %>
+  <% end %>
+<% else %>
+  <%= image_tag "cyberpunk_#{profile.kind}_character.png", class: "character-image" %>
+  <%= "Kind: #{profile.kind.titleize}" %>
+  </br>
+  <%= "Level: #{profile.level}" %>
+  </br>
+  <%= "Experience: #{profile.experience}" %>
+  </br>
+  <%= "Attributes: #{profile.attributes.to_sentence}" %>
+  </br>
+  <%= "Skills: #{profile.skills.to_sentence}" %>
+<% end %>
